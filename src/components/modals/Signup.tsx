@@ -1,11 +1,48 @@
 "use client";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/firebase";
+import { useRouter } from 'next/navigation'
 
 type SignupProps = {};
 
+const defaultData = {
+  email: "",
+  displayName: "",
+  password: "",
+};
 const Signup: React.FC<SignupProps> = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState(defaultData);
+  const { email, displayName, password } = userData;
+  const router = useRouter();
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+    console.log(userData);
+  };
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const handleRegister = async (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if(!email || !password || !displayName){
+      alert("please provide all the fields");
+      return ;
+    }
+    try {
+      const newUser = await createUserWithEmailAndPassword(email,password);
+      if( !newUser ){
+        router.push('/');
+      }{
+    }} catch (error:any) {
+      alert(error.message)
+    };
+  };
+  useEffect(()=>{
+    error && alert(error?.message);
+  },[error])
   return (
     <>
       <form className="space-y-6 px-6 py-4">
@@ -21,10 +58,13 @@ const Signup: React.FC<SignupProps> = () => {
             type="text"
             placeholder="Enter Email"
             id="email"
+            name="email"
+            value={email}
             className="
             border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
             bg-gray-600 border-gray-500 placeholder-gray-400 text-white
         "
+            onChange={handleInputChange}
           />
         </div>
         <div>
@@ -39,10 +79,12 @@ const Signup: React.FC<SignupProps> = () => {
             placeholder="coder xyz"
             id="displayName"
             name="displayName"
+            value={displayName}
             className="
             border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
             bg-gray-600 border-gray-500 placeholder-gray-400 text-white
         "
+            onChange={handleInputChange}
           />
         </div>
         <div>
@@ -53,10 +95,11 @@ const Signup: React.FC<SignupProps> = () => {
             Your Password
           </label>
           <input
-            //   onChange={handleInputChange}
+            onChange={handleInputChange}
             type="password"
             name="password"
             id="password"
+            value={password}
             className="
             border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
             bg-gray-600 border-gray-500 placeholder-gray-400 text-white
@@ -69,8 +112,9 @@ const Signup: React.FC<SignupProps> = () => {
           className="w-full text-white focus:ring-blue-300 font-medium rounded-lg
                 text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s
             "
+          onClick={handleRegister}
         >
-          {loading ? "Loading..." : "Log In"}
+          {loading ? "Loading..." : "Register"}
         </button>
         <button
           className="flex w-full justify-end"
@@ -88,7 +132,7 @@ const Signup: React.FC<SignupProps> = () => {
           <a
             href="#"
             className="text-blue-700 hover:underline"
-            //   onClick={() => handleClick("register")}
+              // onClick={() => handleClick("register")}
           >
             Create account
           </a>
