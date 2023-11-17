@@ -1,9 +1,16 @@
+"use client";
+import { authModalState } from "@/atoms/AuthModalAtom";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const handleClick = (type: "register" | "login" | "forgotPassword") => {
+    setAuthModalState((prev) => ({ ...prev, type }));
+  };
   return (
     <form className="space-y-6 px-6 py-4">
       <h3 className="text-xl font-medium text-white">Sign in to codesHub</h3>
@@ -53,7 +60,7 @@ const Login: React.FC<LoginProps> = () => {
       </button>
       <button
         className="flex w-full justify-end"
-        // onClick={() => handleClick("forgotPassword")}
+        onClick={() => handleClick("forgotPassword")}
       >
         <a
           href="#"
@@ -67,7 +74,7 @@ const Login: React.FC<LoginProps> = () => {
         <a
           href="#"
           className="text-blue-700 hover:underline"
-        //   onClick={() => handleClick("register")}
+            onClick=  {() => handleClick("register")}
         >
           Create account
         </a>

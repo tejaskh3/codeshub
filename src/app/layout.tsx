@@ -1,8 +1,8 @@
-// "use client"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import { RecoilRoot } from "recoil";
+import { RecoilRoot } from "recoil";
+import RecoilRootWrapper from "@/components/providers/RecoilRootWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,10 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // <RecoilRoot>
+    
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}><RecoilRootWrapper>{children}</RecoilRootWrapper></body>
       </html>
-    // </RecoilRoot>
   );
 }

@@ -1,13 +1,19 @@
 "use client";
-
 import React from "react";
-import {IoMdClose} from 'react-icons/io'
+import { IoMdClose } from "react-icons/io";
 import Login from "./Login";
 import Signup from "./Signup";
 import ResetPassword from "./ResetPassword";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/AuthModalAtom";
 type AuthModalProps = {};
 
 const AuthModal: React.FC<AuthModalProps> = () => {
+  const authModal = useRecoilValue(authModalState);
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const closeModal = () =>{
+    setAuthModalState((prev) => ({ ...prev, isOpen: false }));
+  }
   return (
     <>
       <div
@@ -21,22 +27,18 @@ const AuthModal: React.FC<AuthModalProps> = () => {
               <button
                 type="button"
                 className="bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white text-white"
-                // onClick={closeModal}
+                onClick={closeModal}
               >
-                
                 <IoMdClose className="h-5 w-5" />
               </button>
             </div>
-            {/* {authModal.type === "login" ? (
+            {authModal.type === "login" ? (
               <Login />
             ) : authModal.type === "register" ? (
               <Signup />
             ) : (
               <ResetPassword />
-            )} */}
-            {/* <Login/> */}
-            {/* <Signup/> */}
-            <ResetPassword/>
+            )}
           </div>
         </div>
       </div>
