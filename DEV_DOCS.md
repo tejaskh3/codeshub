@@ -23,7 +23,22 @@ type AuthModalState = {
 - now moving to the home page it will be having questions [Topbar Component](src/components/topbar/Topbar.tsx)
 - in this we will simply have a logo and two buttons 1. premium(later i'll integrate payment gateway) so that all the questions can be accessed easily.
 - then added problems to the [problems-data](/src/problems-data/Problems.ts)
-- after adding the problem started working upon problems(home page) [Home page](src/app/page.tsx)ube 
+- after adding the problem started working upon problems(home page) [Home page](src/app/page.tsx)
+- this is a sample data of problems 
+```javascript
+export type Problem = {
+  id: string; 
+  title: string;
+  difficulty: string;
+  category: string;
+  order: number;
+  videoId?: string;
+  isPaid: Boolean; 
+};
+```
 
-## youtube video modal
+### youtube video modal
 - for the solutions of video react-youtube is used which let's you see the solution while being on the same page.
+
+After this portion, adding a flag in [topbar](src/components/topbar/Topbar.tsx) if the use is logged in or not, and manage login button accordingly.
+Then added **react-toastify** for error and success messages.

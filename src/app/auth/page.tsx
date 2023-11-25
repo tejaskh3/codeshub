@@ -12,14 +12,18 @@ type AuthPageProps = {};
 const AuthPage: React.FC<AuthPageProps> = () => {
   const authModal = useRecoilValue(authModalState);
   const [loading, user, error] = useAuthState(auth);
-  const [pageLoading, setPageLoading] = useState(true);
-
+  const [pageLoading, setPageLoading] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    if (user) router.push("/");
-    if (!loading && !user) setPageLoading(false);
-  }, [user, router]);
-  return pageLoading ? null : (
+  // useEffect(() => {
+  //   router.push("/");
+
+  //   if (!loading && !user) {
+  //     console.log("User not signed in, setPageLoading(false)");
+  //     setPageLoading(false);
+  //   }
+  // }, [user, router]);
+  // return pageLoading ? null : 
+  return (
     <div className="bg-gradient-to-b from-gray-600 to-black h-screen relative">
       <div className=" max-w-7xl mx-auto">
         <Navbar />

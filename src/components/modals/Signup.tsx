@@ -33,6 +33,8 @@ const Signup: React.FC<SignupProps> = () => {
     }
     try {
       const newUser = await createUserWithEmailAndPassword(email,password);
+      console.log(newUser);
+      
       if( !newUser ){
         router.push('/');
       }{
