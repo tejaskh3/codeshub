@@ -16,3 +16,14 @@ type AuthModalState = {
   type: "register" | "login" | "forgotPassword";
 };
 ```
+- in the auth route a functionality has been added of login and signup with email and password using firebase auth.
+- react-firebase-hooks has been used for this.
+
+## Home 
+- now moving to the home page it will be having questions [Topbar Component](src/components/topbar/Topbar.tsx)
+- in this we will simply have a logo and two buttons 1. premium(later i'll integrate payment gateway) so that all the questions can be accessed easily.
+- then added problems to the [problems-data](/src/problems-data/Problems.ts)
+- after adding the problem started working upon problems(home page) [Home page](src/app/page.tsx)ube 
+
+## youtube video modal
+- for the solutions of video react-youtube is used which let's you see the solution while being on the same page.
