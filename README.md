@@ -38,4 +38,4 @@ CodesHub is an open-source coding platform designed to empower coders through co
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/codeshub.git
+   git clone https://github.com/tejaskh3/codeshub.git
